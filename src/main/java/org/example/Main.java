@@ -19,7 +19,7 @@ public class Main {
 
             switch (menuInput) {
                 case "1" -> Encryption(scanner);
-                case "2" -> System.out.println("Метод 2");
+                case "2" -> Decryption(scanner);
                 case "3" -> System.out.println("Метод 3");
                 case "0" -> {
                     System.out.println("Завершение программы...");
@@ -67,5 +67,40 @@ public class Main {
             // шифрование со ключом по умолчанию
         }
         //  написать логику чтения файла и шифрования
+    }
+
+    private static void Decryption(Scanner scanner) {
+
+        System.out.println("Напишите путь к файлу, который хотите расшифровать и ключ для расшифровки");
+        System.out.println("Или оставьте поля пустыми для запуска примера дешифровки:");
+        System.out.print("Введите путь к файлу > ");
+        String filePath = scanner.nextLine();
+
+        if (filePath.isEmpty()) {
+            System.out.println("Запущен пример дешифровки...");
+            // пример дешифровки
+            return;
+        }
+
+        File inputFile = new File(filePath);
+        if (!inputFile.exists() || !inputFile.isFile()) {
+            System.out.println("Файл не найден или недопустимый путь: " + filePath);
+            return;
+        }
+
+        int key = 0;
+        System.out.print("Введите ключ для дешифровки > ");
+        String keyInput = scanner.nextLine();
+        if (!keyInput.isEmpty()) {
+            try {
+                key = Integer.parseInt(keyInput);
+            } catch (NumberFormatException e) {
+                System.out.println("Некорректный формат ключа. Попробуйте снова.");
+                return;
+            }
+        } else {
+            System.out.println("Ключ не введен, возврат в главное меню...");
+        }
+        //  написать логику чтения файла и дешифровки
     }
 }
