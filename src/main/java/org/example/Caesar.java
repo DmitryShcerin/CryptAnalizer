@@ -1,6 +1,6 @@
 package org.example;
 
-public class Encrypt {
+public class Caesar {
     private static final String ALPHABET = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя" +
             "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" +
             ".,\"’:-!? \n";

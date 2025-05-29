@@ -38,6 +38,7 @@ public class Main {
         System.out.println("Или оставьте поля пустыми для запуска примера шифрования:");
         System.out.print("Введите путь к файлу > ");
         String filePath = scanner.nextLine();
+        String encryptedFilePath = "C:\\Users\\elpep\\test\\encr.txt";
 
         if (filePath.isEmpty()) {
             System.out.println("Запущен пример шифрования...");
@@ -63,20 +64,20 @@ public class Main {
             }
         } else {
             System.out.println("Ключ не введен. Будет использован ключ по умолчанию.");
-            key = 3;
-            // шифрование со ключом по умолчанию
+            key = 4;
         }
 
         try (
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
-                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("C:\\Users\\elpep\\test\\dest.txt"))
+                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(encryptedFilePath))
         ) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                String encryptedLine = Encrypt.decrypt(line, key);
+                String encryptedLine = Caesar.encrypt(line, key);
                 bufferedWriter.write(encryptedLine);
                 bufferedWriter.newLine();
             }
+            System.out.println("Файл успешно зашифрован с ключом \"" + key + "\" и записан в файл - " + encryptedFilePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
