@@ -1,9 +1,6 @@
 package org.example;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 public class Main {
@@ -69,16 +66,18 @@ public class Main {
             key = 3;
             // шифрование со ключом по умолчанию
         }
-        //  написать логику чтения файла и шифрования
-        try {
-            FileReader fileReader = new FileReader(filePath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
 
+        try (
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("C:\\Users\\elpep\\test\\dest.txt"))
+        ) {
             String line;
-            while ((line = bufferedReader.readLine()) != null){
-                System.out.println(line);
+            while ((line = bufferedReader.readLine()) != null) {
+                String encryptedLine = Encrypt.decrypt(line, key);
+                bufferedWriter.write(encryptedLine);
+                bufferedWriter.newLine();
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

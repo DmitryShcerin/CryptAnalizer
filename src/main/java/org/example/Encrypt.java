@@ -3,7 +3,7 @@ package org.example;
 public class Encrypt {
     private static final String ALPHABET = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя" +
             "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" +
-            ".,\"’:-!? \n\t";
+            ".,\"’:-!? \n";
 
 
     public static String encrypt(String data, int key) {
