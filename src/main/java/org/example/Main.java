@@ -1,6 +1,9 @@
 package org.example;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -18,8 +21,8 @@ public class Main {
             String menuInput = scanner.nextLine();
 
             switch (menuInput) {
-                case "1" -> Encryption(scanner);
-                case "2" -> Decryption(scanner);
+                case "1" -> encryption(scanner);
+                case "2" -> decryption(scanner);
                 case "3" -> System.out.println("Метод 3");
                 case "0" -> {
                     System.out.println("Завершение программы...");
@@ -32,7 +35,7 @@ public class Main {
         }
     }
 
-    private static void Encryption(Scanner scanner) {
+    private static void encryption(Scanner scanner) {
 
         System.out.println("Напишите путь к файлу, который хотите зашифровать и ключ для шифровки");
         System.out.println("Или оставьте поля пустыми для запуска примера шифрования:");
@@ -67,9 +70,20 @@ public class Main {
             // шифрование со ключом по умолчанию
         }
         //  написать логику чтения файла и шифрования
+        try {
+            FileReader fileReader = new FileReader(filePath);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null){
+                System.out.println(line);
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
-    private static void Decryption(Scanner scanner) {
+    private static void decryption(Scanner scanner) {
 
         System.out.println("Напишите путь к файлу, который хотите расшифровать и ключ для расшифровки");
         System.out.println("Или оставьте поля пустыми для запуска примера дешифровки:");
