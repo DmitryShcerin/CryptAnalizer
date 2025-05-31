@@ -43,6 +43,25 @@ public class Main {
         if (filePath.isEmpty()) {
             System.out.println("Запущен пример шифрования...");
             // пример шифрования
+            String demoTextFilePath = "C:\\Users\\elpep\\idea\\CryptAnalyzer\\src\\main\\resources\\demo_text.txt";
+            String encryptedDemoTextFilePath = "C:\\Users\\elpep\\idea\\CryptAnalyzer\\src\\main\\resources\\encrypted_demo_text.txt";
+            int key = 15;
+            System.out.println("Ключ используемый в примере шифрования: " + key);
+
+            try (
+                    BufferedReader bufferedReader = new BufferedReader(new FileReader(demoTextFilePath));
+                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(encryptedDemoTextFilePath))
+            ) {
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    String encryptedLine = Caesar.encrypt(line, key);
+                    bufferedWriter.write(encryptedLine);
+                    bufferedWriter.newLine();
+                }
+                System.out.println("Файл успешно зашифрован с ключом \"" + key + "\" и записан в файл - " + encryptedDemoTextFilePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return;
         }
 
