@@ -107,17 +107,18 @@ public class Main {
         System.out.println("Напишите путь к файлу, который хотите расшифровать и ключ для расшифровки");
         System.out.println("Или оставьте поля пустыми для запуска примера дешифровки:");
         System.out.print("Введите путь к файлу > ");
-        String filePath = scanner.nextLine();
+        String encryptedFilePath = scanner.nextLine();
+        String decryptedFilePath = "C:\\Users\\elpep\\test\\decr.txt";
 
-        if (filePath.isEmpty()) {
+        if (encryptedFilePath.isEmpty()) {
             System.out.println("Запущен пример дешифровки...");
             // пример дешифровки
             return;
         }
 
-        File inputFile = new File(filePath);
+        File inputFile = new File(encryptedFilePath);
         if (!inputFile.exists() || !inputFile.isFile()) {
-            System.out.println("Файл не найден или недопустимый путь: " + filePath);
+            System.out.println("Файл не найден или недопустимый путь: " + encryptedFilePath);
             return;
         }
 
@@ -135,5 +136,20 @@ public class Main {
             System.out.println("Ключ не введен, возврат в главное меню...");
         }
         //  написать логику чтения файла и дешифровки
+
+        try (
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(encryptedFilePath));
+                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(decryptedFilePath))
+        ) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String decryptedLine = Caesar.decrypt(line, key);
+                bufferedWriter.write(decryptedLine);
+                bufferedWriter.newLine();
+            }
+            System.out.println("Файл успешно расшифрован с ключом \"" + key + "\" и записан в файл - " + decryptedFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
