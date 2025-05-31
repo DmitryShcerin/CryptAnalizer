@@ -113,6 +113,26 @@ public class Main {
         if (encryptedFilePath.isEmpty()) {
             System.out.println("Запущен пример дешифровки...");
             // пример дешифровки
+
+            String demoToDecryptTextFilePath = "C:\\Users\\elpep\\idea\\CryptAnalyzer\\src\\main\\resources\\demo_to_decrypt_text.txt";
+            String decryptedDemoTextFilePath = "C:\\Users\\elpep\\idea\\CryptAnalyzer\\src\\main\\resources\\decrypted_demo_text.txt";
+            int key = 15;
+            System.out.println("Ключ используемый в примере шифрования: " + key);
+
+            try (
+                    BufferedReader bufferedReader = new BufferedReader(new FileReader(demoToDecryptTextFilePath));
+                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(decryptedDemoTextFilePath))
+            ) {
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    String encryptedLine = Caesar.decrypt(line, key);
+                    bufferedWriter.write(encryptedLine);
+                    bufferedWriter.newLine();
+                }
+                System.out.println("Файл успешно расшифрован с ключом \"" + key + "\" и записан в файл - " + decryptedDemoTextFilePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return;
         }
 
