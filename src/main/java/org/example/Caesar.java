@@ -3,7 +3,7 @@ package org.example;
 public class Caesar {
     private static final String ALPHABET = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя" +
             "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" +
-            ".,\"’:-!? \n";
+            ".,\"’:-!? \n()";
 
 
     public static String encrypt(String data, int key) {
@@ -13,19 +13,22 @@ public class Caesar {
             int index = ALPHABET.indexOf(ch);
             if (index != -1) {
                 int shiftedIndex = (index + key) % ALPHABET.length();
-                if (shiftedIndex < 0){
-                    shiftedIndex+=ALPHABET.length();
+                if (shiftedIndex < 0) {
+                    shiftedIndex += ALPHABET.length();
                 }
                 result.append(ALPHABET.charAt(shiftedIndex));
-            }
-            else {
+            } else {
                 result.append(ch);
             }
         }
         return result.toString();
     }
 
-    public static String decrypt(String data, int key){
-        return encrypt(data,-key);
+    public static String decrypt(String data, int key) {
+        return encrypt(data, -key);
+    }
+
+    public static int getAlphabetLength() {
+        return ALPHABET.length();
     }
 }

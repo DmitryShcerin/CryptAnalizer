@@ -20,7 +20,7 @@ public class Main {
             switch (menuInput) {
                 case "1" -> encryption(scanner);
                 case "2" -> decryption(scanner);
-                case "3" -> System.out.println("Метод 3");
+                case "3" -> bruteForce(scanner);
                 case "0" -> {
                     System.out.println("Завершение программы...");
                     scanner.close();
@@ -42,7 +42,7 @@ public class Main {
 
         if (filePath.isEmpty()) {
             System.out.println("Запущен пример шифрования...");
-            // пример шифрования
+
             String demoTextFilePath = "C:\\Users\\elpep\\idea\\CryptAnalyzer\\src\\main\\resources\\demo_text.txt";
             String encryptedDemoTextFilePath = "C:\\Users\\elpep\\idea\\CryptAnalyzer\\src\\main\\resources\\encrypted_demo_text.txt";
             int key = 15;
@@ -112,7 +112,6 @@ public class Main {
 
         if (encryptedFilePath.isEmpty()) {
             System.out.println("Запущен пример дешифровки...");
-            // пример дешифровки
 
             String demoToDecryptTextFilePath = "C:\\Users\\elpep\\idea\\CryptAnalyzer\\src\\main\\resources\\demo_to_decrypt_text.txt";
             String decryptedDemoTextFilePath = "C:\\Users\\elpep\\idea\\CryptAnalyzer\\src\\main\\resources\\decrypted_demo_text.txt";
@@ -155,7 +154,6 @@ public class Main {
         } else {
             System.out.println("Ключ не введен, возврат в главное меню...");
         }
-        //  написать логику чтения файла и дешифровки
 
         try (
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(encryptedFilePath));
@@ -168,6 +166,64 @@ public class Main {
                 bufferedWriter.newLine();
             }
             System.out.println("Файл успешно расшифрован с ключом \"" + key + "\" и записан в файл - " + decryptedFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void bruteForce(Scanner scanner) {
+        System.out.println("Напишите путь к файлу, который хотите расшифровать Брутфорсом");
+        System.out.println("Или оставьте поле пустым, чтобы использовать файл по умолчанию");
+        System.out.print("Введите путь к файлу > ");
+        String encryptedFilePath = scanner.nextLine();
+        String decryptedByBruteForceFilePath = "C:\\Users\\elpep\\test\\bruteforce_result.txt";
+
+        if (encryptedFilePath.isEmpty()) {
+            System.out.println("Запущен пример дешифровки...");
+
+            String demoToBruteForceTextFilePath = "C:\\Users\\elpep\\idea\\CryptAnalyzer\\src\\main\\resources\\demo_to_bruteforce_text.txt";
+            String demoDecryptedByBruteFilePath = "C:\\Users\\elpep\\idea\\CryptAnalyzer\\src\\main\\resources\\demo_decrypted_by_bruteforce_text.txt";
+
+            try (
+                    BufferedReader bufferedReader = new BufferedReader(new FileReader(demoToBruteForceTextFilePath));
+                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(demoDecryptedByBruteFilePath))
+            ) {
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+
+                    for (int key = 1; key < Caesar.getAlphabetLength(); key++) {
+                        String decryptedLine = Caesar.decrypt(line, key);
+                        bufferedWriter.write("Ключ: " + key + " | " + decryptedLine);
+                        bufferedWriter.newLine();
+                    }
+                }
+                System.out.println("Брутфорс завершен. Результаты записаны в файл: " + demoDecryptedByBruteFilePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
+        File inputFile = new File(encryptedFilePath);
+        if (!inputFile.exists() || !inputFile.isFile()) {
+            System.out.println("Файл не найден или недопустимый путь: " + encryptedFilePath);
+            return;
+        }
+
+        try (
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(encryptedFilePath));
+                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(decryptedByBruteForceFilePath))
+        ) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+
+                for (int key = 1; key < Caesar.getAlphabetLength(); key++) {
+                    String decryptedLine = Caesar.decrypt(line, key);
+                    bufferedWriter.write("Ключ: " + key + " | " + decryptedLine);
+                    bufferedWriter.newLine();
+                }
+            }
+            System.out.println("Брутфорс завершен. Результаты записаны в файл: " + decryptedByBruteForceFilePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
