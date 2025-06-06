@@ -7,7 +7,6 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Добро пожаловать в Криптоанализатор!");
         Scanner scanner = new Scanner(System.in);
-
         while (true) {
             System.out.println("1 - Зашифровать");
             System.out.println("2 - Расшифровать используя ключ");
