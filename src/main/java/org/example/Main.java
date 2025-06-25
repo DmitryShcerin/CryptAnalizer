@@ -189,12 +189,12 @@ public class Main {
             ) {
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
-
-                    for (int key = 1; key < Caesar.getAlphabetLength(); key++) {
-                        String decryptedLine = Caesar.decrypt(line, key);
-                        bufferedWriter.write("Ключ: " + key + " | " + decryptedLine);
-                        bufferedWriter.newLine();
-                    }
+                    DecryptionResult result = Caesar.decryptByBruteForce(line);
+                    String decryptedLine = result.getDecryptedText();
+                    int usedKey = result.getKey();
+                    bufferedWriter.write(decryptedLine);
+                    bufferedWriter.newLine();
+                    System.out.println("Использованный ключ: " + usedKey);
                 }
                 System.out.println("Брутфорс завершен. Результаты записаны в файл: " + demoDecryptedByBruteFilePath);
             } catch (IOException e) {
@@ -215,12 +215,12 @@ public class Main {
         ) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-
-                for (int key = 1; key < Caesar.getAlphabetLength(); key++) {
-                    String decryptedLine = Caesar.decrypt(line, key);
-                    bufferedWriter.write("Ключ: " + key + " | " + decryptedLine);
-                    bufferedWriter.newLine();
-                }
+                DecryptionResult result = Caesar.decryptByBruteForce(line);
+                String decryptedLine = result.getDecryptedText();
+                int usedKey = result.getKey();
+                bufferedWriter.write(decryptedLine);
+                bufferedWriter.newLine();
+                System.out.println("Ключ, которым был зашифрован текст: " + usedKey);
             }
             System.out.println("Брутфорс завершен. Результаты записаны в файл: " + decryptedByBruteForceFilePath);
         } catch (IOException e) {
