@@ -3,7 +3,7 @@ package org.example;
 public class Caesar {
     private static final String ALPHABET = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя" +
             "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" +
-            ".,\"’:-!? \n()";
+            ".,\"’:-!? \n()[]";
 
 
     public static String encrypt(String data, int key) {
